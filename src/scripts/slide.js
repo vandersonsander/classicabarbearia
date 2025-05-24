@@ -1,46 +1,43 @@
 import debounce from './debounce.js';
 
 export default class Slide {
-  constructor(wrapper, slide, controlNav, customControls) {
-    this.wrapper = this.s(wrapper);
-    this.slide = this.s(slide);
+  constructor(wrapper, slide, controlNav) {
+    this.wrapper = this.select(wrapper);
+    this.slide = this.select(slide);
     this.posx = 0;
     this.touch = { start: 0, move: 0 };
     this.mouse = { move: 0 };
     this.activeSlide = 0;
-    this.controlNav = controlNav ? this.s(controlNav) : this.createNav();
-    this.customControls = customControls ? this.s(customControls) : this.createCustomControls();
+    this.controlNav = controlNav ? this.select(controlNav) : this.createDefaultNav();
   }
 
-  s(e) {
+  select(e) {
     return document.querySelector(e);
   }
 
-  sa(e) {
+  selectAll(e) {
     return document.querySelectorAll(e);
   }
 
-  ae(target, event, callback) {
+  addEvent(target, event, callback) {
     target.addEventListener(event, callback);
   }
 
-  re(target, event, callback) {
+  removeEvent(target, event, callback) {
     target.removeEventListener(event, callback);
   }
 
-  // Create Element
-  ce(e, c, t) {
-    e = document.createElement(e); // Create Element
-    e.className = c; // Define ClassName
-    e.innerText = t; // Insert Text
+  createElement(e, c, t) {
+    e = document.createElement(e);
+    e.className = c;
+    e.innerText = t;
     return e;
   }
 
-  // Create Default Nav
-  createNav() {
-    const prev = this.ce('button', 'prev-nav', '<');
-    const next = this.ce('button', 'prev-nav', '>');
-    const navControls = this.ce('div', 'nav-controls', '');
+  createDefaultNav() {
+    const prev = this.createElement('button', 'prev-nav', '<');
+    const next = this.createElement('button', 'prev-nav', '>');
+    const navControls = this.createElement('div', 'nav-controls', '');
     navControls.appendChild(prev);
     navControls.appendChild(next);
     document.body.insertBefore(navControls, this.wrapper.nextSibling);
@@ -49,24 +46,24 @@ export default class Slide {
 
   // Add Nav Functions
   addNavFunctions() {
-    this.ae(this.controlNav.children[0], 'click', this.prevSlide);
-    this.ae(this.controlNav.children[1], 'click', this.nextSlide);
+    this.addEvent(this.controlNav.children[0], 'click', this.prevSlide);
+    this.addEvent(this.controlNav.children[1], 'click', this.nextSlide);
   }
 
   // Create Custom Controls
   createCustomControls() {
     const { length } = this.slide.children;
-    const controls = this.ce('ul', 'custom-controls', '');
+    const controls = this.createElement('ul', 'custom-controls', '');
     let i;
     // eslint-disable-next-line no-plusplus
     for (i = 1; i <= length; i++) {
-      controls.appendChild(this.ce('li', '', ''));
+      controls.appendChild(this.createElement('li', '', ''));
     }
     return controls;
   }
 
   // Add Functions to Custom Controls
-  addFunctionCC() {
+  addFunctionToCustomControls() {
     document.body.insertBefore(this.customControls, this.wrapper);
     const controls = [...this.customControls.children];
     controls.forEach((elem, i) => {
@@ -78,9 +75,9 @@ export default class Slide {
   onStart(e) {
     e.preventDefault();
     this.transition(false);
-    this.ae(this.wrapper, 'mousemove', this.onMove);
-    this.ae(this.wrapper, 'mouseup', this.onEnd);
-    this.ae(this.wrapper, 'mouseout', this.onEnd);
+    this.addEvent(this.wrapper, 'mousemove', this.onMove);
+    this.addEvent(this.wrapper, 'mouseup', this.onEnd);
+    this.addEvent(this.wrapper, 'mouseout', this.onEnd);
   }
 
   onMove(e) {
@@ -92,13 +89,13 @@ export default class Slide {
   onEnd() {
     this.checkPosition(this.mouse.move);
     this.mouse.move = 0;
-    this.re(this.wrapper, 'mousemove', this.onMove);
+    this.removeEvent(this.wrapper, 'mousemove', this.onMove);
   }
 
   // Touch Events
   touchStart(e) {
-    this.ae(this.wrapper, 'touchmove', this.touchMove);
-    this.ae(this.wrapper, 'touchend', this.touchEnd);
+    this.addEvent(this.wrapper, 'touchmove', this.touchMove);
+    this.addEvent(this.wrapper, 'touchend', this.touchEnd);
     this.touch.start = e.touches[0].clientX;
     this.transition(false);
   }
@@ -112,7 +109,7 @@ export default class Slide {
     this.posx += this.touch.move;
     this.checkPosition(this.touch.move);
     this.touch.move = 0;
-    this.re(this.wrapper, 'touchmove', this.touchMove);
+    this.removeEvent(this.wrapper, 'touchmove', this.touchMove);
   }
 
   checkPosition(pos) {
@@ -164,13 +161,10 @@ export default class Slide {
   // Add class active to active slide
   active(index) {
     const slides = [...this.slide.children];
-    const customControls = [...this.customControls.children];
     slides.forEach((elem, i) => {
       elem.classList.remove('active');
-      customControls[i].classList.remove('active');
     });
     slides[index].classList.add('active');
-    customControls[index].classList.add('active');
   }
 
   // Control the window resize.
@@ -179,21 +173,17 @@ export default class Slide {
   }
 
   bindEvents() {
-    // Binding the Mouse Events
     this.onStart = this.onStart.bind(this);
     this.onMove = this.onMove.bind(this);
     this.onEnd = this.onEnd.bind(this);
-    // Binding the Touch Events
     this.touchStart = this.touchStart.bind(this);
     this.touchMove = this.touchMove.bind(this);
     this.touchEnd = this.touchEnd.bind(this);
-    // Binding the Controls
     this.prevSlide = this.prevSlide.bind(this);
     this.nextSlide = this.nextSlide.bind(this);
     this.changeSlide = this.changeSlide.bind(this);
     this.checkPosition = this.checkPosition.bind(this);
     this.active = this.active.bind(this);
-    // Control the window Events
     this.resize = debounce(this.resize.bind(this), 400);
   }
 
@@ -201,11 +191,10 @@ export default class Slide {
     this.changeSlide(0);
     this.bindEvents();
     this.addNavFunctions();
-    this.addFunctionCC();
     window.addEventListener('resize', this.resize);
     this.transition(true);
-    this.ae(this.wrapper, 'mousedown', this.onStart);
-    this.ae(this.wrapper, 'touchstart', this.touchStart);
+    this.addEvent(this.wrapper, 'mousedown', this.onStart);
+    this.addEvent(this.wrapper, 'touchstart', this.touchStart);
     return this;
   }
 }

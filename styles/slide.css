@@ -5,7 +5,7 @@
 .slide:hover {
   will-change: transform;
 }
-.slide li {
+.slide > * {
   flex-grow: 1;
   flex-shrink: 0;
   flex-basis: 1;
@@ -13,11 +13,10 @@
   user-select: none;
   border-radius: 5px;
   overflow: hidden;
-  transform: scale(0.8);
   transition: 0.4s;
   opacity: 0.5;
 }
-.slide li.active {
+.slide > *.active {
   opacity: 1;
   transform: scale(1);
 }
@@ -33,10 +32,14 @@
   width: 30px;
   height: 30px;
   overflow: hidden;
-  border-radius: 5px;
+  border-radius: 50%;
   border: none;
-  background-color: #fa0;
-  color: white;
+  font-weight: bold;
+  background-color: var(--golden);
+  color: var(--dark-1);
   display: flex;
   justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  cursor: pointer
 }
