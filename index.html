@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Clássica Barbearia</title>
+    <link rel="stylesheet" href="styles/barber-pole.css" />
     <link rel="stylesheet" href="styles/style.css" />
     <link rel="stylesheet" href="styles/slide.css" />
     <link rel="icon" href="/favicon.ico" type="image/x-icon" />
@@ -33,37 +34,55 @@
         <div class="header-text">
           <h1>Clássica Barbearia</h1>
           <p>Agende seu horário conosco</p>
-          <button class="schedule-action">Agendar</button>
+          <a
+            class="schedule-action"
+            href="https://booksy.com/pt-br/65265_classica-barbearia_barbearias_1008494_praia-grande"
+            target="_blank"
+          >
+            Agendar
+          </a>
         </div>
         <div class="header-action"></div>
       </div>
     </header>
-    <section class="instagram-posts-wrapper">
+    <div id="loading">
+      <div class="barber-container">
+        <div class="end-cap"></div>
+        <div class="cap"></div>
+        <div class="barber-wrap">
+          <div class="barber"></div>
+        </div>
+        <div class="cap"></div>
+        <div class="end-cap"></div>
+      </div>
+    </div>
+    <section class="instagram-posts-wrapper hidden">
+      <h2 class="title-2">Conheça nosso trabalho</h2>
       <div class="instagram-posts-container wrapper">
         <div class="instagram-posts slide">
           <blockquote
             class="instagram-media"
             data-instgrm-permalink="https://www.instagram.com/p/C7PBBo4g1nA/"
             data-instgrm-version="14"
-            style="background: #fff; border: 0; margin: 1px; max-width: 540px; width: 100%"
+            style="background: transparent; border: 0; max-width: 400px; width: 100%"
           ></blockquote>
           <blockquote
             class="instagram-media"
             data-instgrm-permalink="https://www.instagram.com/p/C5bGXPGgcLX/"
             data-instgrm-version="14"
-            style="background: #fff; border: 0; margin: 1px; max-width: 540px; width: 100%"
+            style="background: #fff; border: 0; max-width: 400px; width: 100%"
           ></blockquote>
           <blockquote
             class="instagram-media"
             data-instgrm-permalink="https://www.instagram.com/p/C9AW-1IA2wt/"
             data-instgrm-version="14"
-            style="background: #fff; border: 0; margin: 1px; max-width: 540px; width: 100%"
+            style="background: #fff; border: 0; max-width: 400px; width: 100%"
           ></blockquote>
           <blockquote
             class="instagram-media"
             data-instgrm-permalink="https://www.instagram.com/p/C7oxDMEAwb7/"
             data-instgrm-version="14"
-            style="background: #fff; border: 0; margin: 1px; max-width: 540px; width: 100%"
+            style="background: #fff; border: 0; max-width: 400px; width: 100%"
           ></blockquote>
         </div>
       </div>
@@ -72,13 +91,52 @@
         <button class="next">&gt;</button>
       </div>
     </section>
-
-    <div class="social-links">
-      <a href="#" aria-label="Instagram">Instagram</a>
-      <a href="#" aria-label="Facebook">Facebook</a>
-      <a href="#" aria-label="WhatsApp">WhatsApp</a>
+    <footer>
+      <div class="footer-content social-media">
+        <h3>Nossas Redes Sociais</h3>
+        <div class="footer-content social-links">
+          <a href="https://api.whatsapp.com/send/?phone=551334741549&text&type=phone_number&app_absent=0">
+            <img src="src/img/icon-whatsapp.png" alt="Ícone Whatsapp" title="WhatsApp" />
+          </a>
+          <a href="https://www.instagram.com/classicabarbearia013">
+            <img src="src/img/icon-instagram.webp" alt="Ícone Instagram" title="Instagram" />
+          </a>
+          <a
+            href="https://open.spotify.com/playlist/1mES7cM3uPP59ufI1gG4fm?si=846b3ce824844f0d&utm_medium=share&utm_source=linktree"
+          >
+            <img src="src/img/icon-spofity.png" alt="Ícone Playlist Spotify" title="Playlist Spotify" />
+          </a>
+        </div>
+      </div>
+      <div class="footer-content localization">
+        <h3>Localização</h3>
+        <div class="footer-content">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d3644.6421201625026!2d-46.41876392383422!3d-24.008411589159103!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce1df2fd418e0b%3A0x5f6aeef9db8deb35!2sCl%C3%A1ssica%20Barbearia%20-%20Praia%20Grande!5e0!3m2!1sen!2sbr!4v1748112855846!5m2!1sen!2sbr"
+            width="600"
+            height="450"
+            style="border: 0"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
+      </div>
+    </footer>
+    <a
+      href="https://booksy.com/pt-br/65265_classica-barbearia_barbearias_1008494_praia-grande"
+      target="_blank"
+      id="booksy-button"
+    ></a>
+    <div id="float-action">
+      <div class="float-action-popup">
+        <p>Agende agora</p>
+      </div>
+      <a href="https://booksy.com/pt-br/65265_classica-barbearia_barbearias_1008494_praia-grande" target="_blank">
+        <img src="src/img/icon-booksy.jpeg" alt="Ícone Booksy" />
+      </a>
     </div>
     <script async src="//www.instagram.com/embed.js"></script>
-    <script module src="main.js"></script>
+    <script type="module" src="main.js"></script>
   </body>
 </html>
